@@ -35,6 +35,44 @@ function print_products() {
     }
   }
 }
+// Print Product
+function print_productas() {
+  document.getElementById("produt_lista").innerHTML = "";
+  var product = JSON.parse(localStorage.getItem("echo_products"));
+  for (let i = 0; i < product.length; i++) {
+    var categories_list = JSON.parse(localStorage.getItem("echo_settings"));
+    if (product[i].categories == categories_list[0].product_detiels_categories) {
+      var Note_list =
+        `     <div class="products" onclick="show_detalis(` +
+        product[i].id +
+        `)" data-drawer-trigger aria-controls="drawer-name" aria-expanded="false">
+  <div class="img">
+    <img src="` +
+        product[i].image +
+        `" alt="" />
+  </div>
+  <div class="pro_details">
+    <div class="pro_heading">` +
+        product[i].name +
+        `</div>
+    <div class="pro_decs"><p>` +
+        product[i].note +
+        `</p></div>
+    <div class="pro_rates">
+    
+      <span>Rs. ` +
+        product[i].price +
+        `</span>
+      <span><s>Rs.1200</s></span>
+      <!-- <span>60% OFF</span> -->
+    </div>
+  </div>
+</div>`;
+      document.getElementById("produt_lista").innerHTML += Note_list;
+    }
+  }
+}
+print_productas();
 // Print Product End
 print_products();
 
@@ -68,6 +106,8 @@ function show_detalis(a) {
   var product = JSON.parse(localStorage.getItem("echo_products"));
   for (var i = 0; i < product.length; i++) {
     if (a == product[i].id) {
+      settings[0].product_detiels_categories = product[i].categories;
+      localStorage.setItem("echo_settings", JSON.stringify(settings));
       var Note_list =
         `
         <div class="products_detail">
@@ -110,6 +150,7 @@ function show_detalis(a) {
       </div>
         `;
       document.getElementById("products_detail").innerHTML += Note_list;
+      print_productas();
     }
   }
 }

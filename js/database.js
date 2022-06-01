@@ -8,7 +8,7 @@ if (product === null) {
       price: "₹16,990",
       note: `Be ready to encounter a thrilling user experience, improved mobile performance, and smooth gaming with the powerful Vivo T1 5G mobile phone. This mobile phone comes with a 16.72 cm (6.58) FHD in-cell display so that you can take delight in stunning visuals. Also, this mobile phone is equipped with a 50 MP Main Camera that enables you to capture stunning photos of everything around you. Lastly, courtesy of the 5000 mAh battery, you can keep running your phone, even during busy working schedules or while you are on a business trip.      `,
       image: "https://rukminim2.flixcart.com/image/416/416/kzd147k0/mobile/m/c/f/-original-imagbe5qknarjywp.jpeg?q=70",
-      categories: "laptop",
+      categories: "phones",
     },
     {
       id: 1,
@@ -78,6 +78,9 @@ if (categories === null) {
     {
       categories: "laptop",
     },
+    {
+      categories: "headset",
+    },
   ];
   localStorage.setItem("echo_categories", JSON.stringify(categories));
 }
@@ -87,7 +90,8 @@ if (settings === null) {
   settings = [];
   settings = [
     {
-      select_categories: "phones",
+      select_categories: "all",
+      product_detiels_categories: "phones",
     },
   ];
   localStorage.setItem("echo_settings", JSON.stringify(settings));
@@ -99,7 +103,7 @@ if (site_settings === null) {
   site_settings = {
     general: {
       logo: "echo",
-      site_banner_text: "Get Your Furniture Delivery </br> Within 30 Minutes",
+      site_banner_text: "Delivery </br> Within 30 Minutes",
       banner_image: "https://bazar-furniture-shop.s3.ap-south-1.amazonaws.com/furniture-shop-header-1648992658016.jpg",
     },
     service: {
