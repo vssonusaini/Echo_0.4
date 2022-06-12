@@ -5,56 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
-    <!-- -----CSS------- -->
     <link rel="stylesheet" href="./css/style.css" />
 
     <!-- -----icons---------- -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="wrapper">
+    <div class="wapper">
       <header>
-        <nav class="nav_bar" id="nav">
+        <nav class="nav_bar">
+          <!-- ------logo---- -->
           <div class="logo">
-            <h1>Echo</h1>
+            <span>echo</span>
           </div>
 
-          <div class="menu_list">
+          <!-- -----menu list---- -->
+          <div class="nav_menu">
             <ul>
               <li>
                 <a href="#" href="#" data-drawer-trigger aria-controls="my_cart" aria-expanded="false"><i class="bx bx-cart-alt"></i></a>
+              </li>
+              <li>
                 <a href="#" href="#" data-drawer-trigger aria-controls="login" aria-expanded="false"><i class="bx bx-user"></i></a>
               </li>
             </ul>
           </div>
         </nav>
-        <div class="hero" id="hero"></div>
+        <div class="hero"></div>
       </header>
-      <div class="service_bar" id="service_bar"></div>
+
       <div class="main-container">
         <aside>
           <div class="categories_menu">
             <div class="heading">
-              <span>Top Categories </span>
+              <span>Categories </span>
             </div>
             <ul id="categories_menu"></ul>
           </div>
         </aside>
-        <div class="grid produts" id="produts">
+        <section>
           <div class="heading">
             <span>All Products </span>
             <br />
-            <span>Best collection in 2021 for you! </span>
+            <span>Best collection in 2022 for you! </span>
           </div>
           <div class="product_list" id="produt_list"></div>
-        </div>
+        </section>
       </div>
-
-      <footer id="footer"></footer>
+      <footer></footer>
     </div>
     <!-- ------------------SIDE-BAR----------------------- -->
-    <section class="drawer" id="drawer-name" data-drawer-target>
+    <section class="drawer" id="show_product_detalis" data-drawer-target>
       <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
       <div class="drawer__wrapper products_detils_60">
         <div class="drawer__header">
@@ -94,60 +95,49 @@
               </div>
             </div>
           </div>
-          <div class="product_list" id="produt_lista">
+          <div class="product_list" id="product_details_inside">
             <h1>ss</h1>
           </div>
         </div>
       </div>
     </section>
-    <!-- ------my cart------- -->
+
+    <!-- ----my--cart--- -->
     <section class="drawer" id="my_cart" data-drawer-target>
       <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-      <div class="drawer__wrapper my_cart_30">
+      <div class="drawer__wrapper my_cart_60">
         <div class="drawer__header">
-          <div class="drawer__title">My Cart</div>
+          <div class="drawer__title"><span id="my_cart_items_count_a"></span> My Cart</div>
           <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="bx bxs-chevron-right"></i></button>
         </div>
         <div class="drawer__content">
-          <div class="my_cart">
-            <div class="cart_product">
-              <div class="cart_count">
-                <a href="#"><i class="bx bxs-caret-up-square"></i></a>
-                <span>2</span>
-                <a href="#"><i class="bx bxs-caret-down-square"></i></a>
+          <div class="my_cart" id="my_cart_items">
+            <div class="my_cart_btns">
+              <a href="#"><i class="bx bx-minus-circle"></i></a>
+              <input type="text" disabled value="89" />
+              <a href="#"><i class="bx bx-plus-circle"></i></a>
+              <a href="#"><i class="bx bx-message-square-x"></i></a>
+            </div>
+            <div class="products my_cart_item">
+              <div class="img">
+                <img src="https://rukminim2.flixcart.com/image/416/416/kvba7bk0/computer/b/g/m/ga401ihr-hz070ts-gaming-laptop-asus-original-imag88s2xhgmuuzk.jpeg?q=70" alt="" />
               </div>
-              <div class="cart_img">
-                <img src="https://biponi-furniture.vercel.app/_next/image?url=https%3A%2F%2Fbazar-furniture-shop.s3.ap-south-1.amazonaws.com%2Ffurniture-%25281%2529-1648993230997.png&w=384&q=75" alt="" />
-              </div>
-              <div class="cart_desc">
-                <span>Apple</span>
-
-                <span><span>Rs: 1230 </span> Rs: 123 x 4 </span>
-              </div>
-              <div class="cart_c_btn">
-                <a href="#"><i class="bx bx-x"></i></a>
+              <div class="pro_details">
+                <div class="pro_heading">Apple</div>
+                <div class="pro_decs"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quo.</p></div>
+                <div class="pro_rates">
+                  <span>Rs. !33</span>
+                  <span><s>Rs.1200</s></span>
+                  <!-- <span>60% OFF</span> -->
+                </div>
               </div>
             </div>
+            `
           </div>
         </div>
       </div>
     </section>
-    <!-- ------Login------- -->
-    <section class="drawer" id="login" data-drawer-target>
-      <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-      <div class="drawer__wrapper login_100">
-        <div class="drawer__header">
-          <div class="drawer__title"></div>
-          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-            <i class="bx bx-x"></i>
-          </button>
-        </div>
-        <div class="drawer__content">
-          <div class="login"></div>
-        </div>
-      </div>
-    </section>
-    <script src="./js/database.js"></script>
+    <script src="./server/database.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

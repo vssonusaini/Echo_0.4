@@ -1,88 +1,10 @@
-// Print Product
-function print_products() {
-  document.getElementById("produt_list").innerHTML = "";
-  var product = JSON.parse(localStorage.getItem("echo_products"));
-  for (let i = 0; i < product.length; i++) {
-    var categories_list = JSON.parse(localStorage.getItem("echo_settings"));
-    if (product[i].categories == categories_list[0].select_categories || "all" == categories_list[0].select_categories) {
-      var Note_list =
-        `     <div class="products" onclick="show_detalis(` +
-        product[i].id +
-        `)" data-drawer-trigger aria-controls="drawer-name" aria-expanded="false">
-  <div class="img">
-    <img src="` +
-        product[i].image +
-        `" alt="" />
-  </div>
-  <div class="pro_details">
-    <div class="pro_heading">` +
-        product[i].name +
-        `</div>
-    <div class="pro_decs"><p>` +
-        product[i].note +
-        `</p></div>
-    <div class="pro_rates">
-    
-      <span>Rs. ` +
-        product[i].price +
-        `</span>
-      <span><s>Rs.1200</s></span>
-      <!-- <span>60% OFF</span> -->
-    </div>
-  </div>
-</div>`;
-      document.getElementById("produt_list").innerHTML += Note_list;
-    }
-  }
-}
-// Print Product
-function print_productas() {
-  document.getElementById("produt_lista").innerHTML = "";
-  var product = JSON.parse(localStorage.getItem("echo_products"));
-  for (let i = 0; i < product.length; i++) {
-    var categories_list = JSON.parse(localStorage.getItem("echo_settings"));
-    if (product[i].categories == categories_list[0].product_detiels_categories) {
-      var Note_list =
-        `     <div class="products" onclick="show_detalis(` +
-        product[i].id +
-        `)" data-drawer-trigger aria-controls="drawer-name" aria-expanded="false">
-  <div class="img">
-    <img src="` +
-        product[i].image +
-        `" alt="" />
-  </div>
-  <div class="pro_details">
-    <div class="pro_heading">` +
-        product[i].name +
-        `</div>
-    <div class="pro_decs"><p>` +
-        product[i].note +
-        `</p></div>
-    <div class="pro_rates">
-    
-      <span>Rs. ` +
-        product[i].price +
-        `</span>
-      <span><s>Rs.1200</s></span>
-      <!-- <span>60% OFF</span> -->
-    </div>
-  </div>
-</div>`;
-      document.getElementById("produt_lista").innerHTML += Note_list;
-    }
-  }
-}
-print_productas();
-// Print Product End
-print_products();
+function categories() {
+  document.getElementById("categories_menu").innerHTML = null;
+  var categories_menu = JSON.parse(localStorage.getItem("echo_database"));
 
-// Categories Menua
-function categories_menua() {
-  document.getElementById("categories_menu").innerHTML = "";
-  var categories = JSON.parse(localStorage.getItem("echo_categories"));
-  for (let i = 0; i < categories.length; i++) {
-    var Note_list = `<li><a onclick="categories_filter('` + categories[i].categories + `')">` + categories[i].categories + `</a></li>`;
-    document.getElementById("categories_menu").innerHTML += Note_list;
+  for (var i = 0; i < categories_menu.categories.length; i++) {
+    var categories_list = `<li><a onclick="categories_filter('` + categories_menu.categories[i].categorie + `')">` + categories_menu.categories[i].categorie + `</a></li>`;
+    document.getElementById("categories_menu").innerHTML += categories_list;
   }
 }
 
@@ -93,20 +15,57 @@ function categories_filter(a) {
     if (settings[0] == settings[i]) {
       settings[0].select_categories = a;
       localStorage.setItem("echo_settings", JSON.stringify(settings));
-      print_products();
+      print_product_menu();
     }
   }
 }
-categories_menua();
-// Categories Menua End
 
-// Show Details
-function show_detalis(a) {
+// Print Product
+function print_product_menu() {
+  document.getElementById("produt_list").innerHTML = "";
+  var echo_database = JSON.parse(localStorage.getItem("echo_database"));
+
+  for (let i = 0; i < echo_database.product.length; i++) {
+    var categories_list = JSON.parse(localStorage.getItem("echo_settings"));
+    if (echo_database.product[i].categories == categories_list[0].select_categories || "all" == categories_list[0].select_categories) {
+      var print_product_menu_html =
+        `     <div class="products" onclick="show_product_detalis(` +
+        echo_database.product[i].id +
+        `)" data-drawer-trigger aria-controls="show_product_detalis" aria-expanded="false">
+        <div class="img">
+          <img src="` +
+        echo_database.product[i].image +
+        `" alt="" />
+        </div>
+        <div class="pro_details">
+          <div class="pro_heading">` +
+        echo_database.product[i].name +
+        `</div>
+          <div class="pro_decs"><p>` +
+        echo_database.product[i].note +
+        `</p></div>
+          <div class="pro_rates">
+
+            <span>Rs. ` +
+        echo_database.product[i].price +
+        `</span>
+            <span><s>Rs.1200</s></span>
+            <!-- <span>60% OFF</span> -->
+          </div>
+        </div>
+      </div>`;
+      document.getElementById("produt_list").innerHTML += print_product_menu_html;
+    }
+  }
+}
+// Print Product
+
+function show_product_detalis(id) {
   document.getElementById("products_detail").innerHTML = "";
   var product = JSON.parse(localStorage.getItem("echo_products"));
-  for (var i = 0; i < product.length; i++) {
-    if (a == product[i].id) {
-      settings[0].product_detiels_categories = product[i].categories;
+  for (var i = 0; i < echo_database.product.length; i++) {
+    if (id == echo_database.product[i].id) {
+      settings[0].product_detiels_categories = echo_database.product[i].categories;
       localStorage.setItem("echo_settings", JSON.stringify(settings));
       var Note_list =
         `
@@ -114,18 +73,20 @@ function show_detalis(a) {
         <div class="product_detail_img_side">
           <div class="product_detail_img">
             <img src="` +
-        product[i].image +
+        echo_database.product[i].image +
         `" alt="" />
           </div>
           <div class="product_detail_btns">
-            <button>Add To Cart</button>
+            <button onclick="Add_to_cart(` +
+        echo_database.product[i].id +
+        `)"  data-drawer-close aria-label="Close Drawer"  data-drawer-trigger aria-controls="my_cart" aria-expanded="false">Add To Cart</button>
             <button>BUy Now</button>
           </div>
         </div>
         <div class="product_detail_dec">
           <div class="product_detail_heading">
             <h2>` +
-        product[i].name +
+        echo_database.product[i].name +
         `</h2>
           </div>
           <div class="product_detail_reviews">
@@ -133,7 +94,7 @@ function show_detalis(a) {
           </div>
           <div class="product_detail_rate">
             <span>` +
-        product[i].price +
+        echo_database.product[i].price +
         `</span>
             <span><s>Rs. 1200</s></span>
           </div>
@@ -142,7 +103,7 @@ function show_detalis(a) {
             <div class="product_detail_desc_heading">Description</div>
             <div class="product_detail_decs_p">
               <p>` +
-        product[i].note +
+        echo_database.product[i].note +
         `</p>
             </div>
           </div>
@@ -150,85 +111,173 @@ function show_detalis(a) {
       </div>
         `;
       document.getElementById("products_detail").innerHTML += Note_list;
-      print_productas();
+    }
+    show_product_detalis_print_list();
+  }
+}
+function show_product_detalis_print_list() {
+  document.getElementById("product_details_inside").innerHTML = "";
+  var echo_database = JSON.parse(localStorage.getItem("echo_database"));
+
+  for (let i = 0; i < echo_database.product.length; i++) {
+    var categories_list = JSON.parse(localStorage.getItem("echo_settings"));
+    if (echo_database.product[i].categories == categories_list[0].product_detiels_categories) {
+      var print_product_menu_html =
+        `     <div class="products" onclick="show_product_detalis(` +
+        echo_database.product[i].id +
+        `)" data-drawer-trigger aria-controls="show_product_detalis" aria-expanded="false">
+        <div class="img">
+          <img src="` +
+        echo_database.product[i].image +
+        `" alt="" />
+        </div>
+        <div class="pro_details">
+          <div class="pro_heading">` +
+        echo_database.product[i].name +
+        `</div>
+          <div class="pro_decs"><p>` +
+        echo_database.product[i].note +
+        `</p></div>
+          <div class="pro_rates">
+
+            <span>Rs. ` +
+        echo_database.product[i].price +
+        `</span>
+            <span><s>Rs.1200</s></span>
+            <!-- <span>60% OFF</span> -->
+          </div>
+        </div>
+      </div>`;
+      document.getElementById("product_details_inside").innerHTML += print_product_menu_html;
     }
   }
 }
 
-// Show Details end
-// Hero
+function Add_to_cart(id) {
+  var echo_database = JSON.parse(localStorage.getItem("echo_database"));
+  for (var i = 0; i < echo_database.product.length; i++) {
+    if (id == echo_database.product[i].id) {
+      var id = echo_database.product[i].id;
+      var image = echo_database.product[i].image;
+      var name = echo_database.product[i].name;
+      var price = echo_database.product[i].price;
+      var note = echo_database.product[i].note;
+      var categories = echo_database.product[i].categories;
 
-function hero() {
-  var site_settings = JSON.parse(localStorage.getItem("echo_site_settings"));
-  var hero_div = document.getElementById("hero");
-  hero_div.style.backgroundImage = "url(" + site_settings.general.banner_image + ")";
-  var hero_html =
-    `<div class="hero_inner">
-  <h2>
-   ` +
-    site_settings.general.site_banner_text +
-    `
-  </h2>
-
-  <div class="search">
-    <i class="bx bx-search-alt"></i>
-    <input type="text" placeholder="Searching for..." />
-  </div>
-</div>`;
-  document.getElementById("hero").innerHTML += hero_html;
-}
-hero();
-
-// Service Bar
-
-function service() {
-  var site_settings = JSON.parse(localStorage.getItem("echo_site_settings"));
-
-  for (var i = 0; i < site_settings.service.service_bar.length; i++) {
-    var service_html =
-      `<div class="service">
-    <span>` +
-      site_settings.service.service_bar[i].service_title +
-      `</span>
-    <span>` +
-      site_settings.service.service_bar[i].service_spen +
-      `</span>
-  </div>`;
-    document.getElementById("service_bar").innerHTML += service_html;
+      var push_my_cart = { id, name, price, note, image, categories };
+      echo_database.my_cart.push(push_my_cart);
+      localStorage.setItem("echo_database", JSON.stringify(echo_database));
+    }
+    my_cart_items_list();
   }
 }
-service();
-// Footer
-function footer() {
-  var site_settings = JSON.parse(localStorage.getItem("echo_site_settings"));
 
-  var footer_div = document.getElementById("footer");
-  var footer_html =
-    `<div class="footer_grid">
-<aside>
-  <div class="logo">
-    <span>` +
-    site_settings.footer.logo +
-    `</span>
-  </div>
-  <p>` +
-    site_settings.footer.footer_desc +
-    `</p>
-</aside>
-<aside>
-  <ul id="footer_links" >
+function my_cart_items_list() {
+  document.getElementById("my_cart_items").innerHTML = "";
+  var echo_database = JSON.parse(localStorage.getItem("echo_database"));
 
-  </ul>
-</aside>
-</div>`;
-  document.getElementById("footer").innerHTML += footer_html;
-
-  for (var i = 0; i < site_settings.footer.links.length; i++) {
-    var b = '<li><a href="' + site_settings.footer.links[i].link_href + '">' + site_settings.footer.links[i].link_name + "</a></li>";
-    document.getElementById("footer_links").innerHTML += b;
+  var cart_items_count = echo_database.my_cart.length;
+  document.getElementById("my_cart_items_count_a").innerText = cart_items_count;
+  for (let i = 0; i < cart_items_count; i++) {
+    var my_cart_html =
+      `
+           <div class="products my_cart_item" onclick="show_product_detalis(` +
+      echo_database.my_cart[i].id +
+      `)">
+      <div class="my_cart_uplerr_btn"  data-drawer-trigger aria-controls="show_product_detalis" aria-expanded="false"  data-drawer-close aria-label="Close Drawer"></div>
+          <div class="img">
+            <img src="` +
+      echo_database.my_cart[i].image +
+      `" alt="" />
+          </div>
+          <div class="pro_details">
+            <div class="pro_heading">` +
+      echo_database.my_cart[i].name +
+      `</div>
+            <div class="pro_decs"><p>` +
+      echo_database.my_cart[i].note +
+      `</p></div>
+            <div class="pro_rates">
+  
+              <span>Rs. <spen  id="quantity_rate_` +
+      echo_database.my_cart[i].id +
+      `">` +
+      echo_database.my_cart[i].price +
+      `</spen> </span>
+              <span><s >Rs.1200</s></span>
+              <!-- <span>60% OFF</span> -->
+            </div>
+          </div>
+          <div class="my_cart_btns">
+          <a href="#"  onclick="decrementQuantityValue(` +
+      echo_database.my_cart[i].id +
+      `,` +
+      echo_database.my_cart[i].price +
+      ` );"><i class="bx bx-minus-circle"></i></a>
+          <input type="text" disabled id="quantity_value_` +
+      echo_database.my_cart[i].id +
+      `" value="1" />
+          <a href="#" onclick="incrementQuantityValue(` +
+      echo_database.my_cart[i].id +
+      `,` +
+      echo_database.my_cart[i].price +
+      `);"><i class="bx bx-plus-circle"></i></a>
+          <a href="#" onclick="my_cart_delete(` +
+      echo_database.my_cart[i].id +
+      `)"><i class="bx bx-message-square-x"></i></a>
+        </div>
+        </div>
+      `;
+    document.getElementById("my_cart_items").innerHTML += my_cart_html;
   }
 }
-footer();
+
+function incrementQuantityValue(id, price) {
+  var input_val = document.getElementById("quantity_value_" + id);
+  var input_rate = document.getElementById("quantity_rate_" + id);
+
+  if (input_val.value >= 5) {
+    input_val.style.backgroundColor = "red";
+    input_val.style.color = "#fff";
+  } else {
+    input_val.value = parseInt(input_val.value) + 1;
+    input_rate.innerHTML = price * input_val.value;
+  }
+}
+
+function decrementQuantityValue(id, price) {
+  var input_val = document.getElementById("quantity_value_" + id);
+  var input_rate = document.getElementById("quantity_rate_" + id);
+
+  if (input_val.value <= 1) {
+    input_val.value = 1;
+  } else {
+    input_val.value = parseInt(input_val.value) - 1;
+    input_val.style.backgroundColor = null;
+    input_val.style.color = "#000";
+    input_rate.innerHTML = price * input_val.value;
+  }
+}
+function my_cart_delete(id) {
+  var echo_database = JSON.parse(localStorage.getItem("echo_database"));
+  for (var i = 0; i < echo_database.my_cart.length; i++) {
+    if (id == echo_database.my_cart[i].id) {
+      echo_database.my_cart.splice(i, 1);
+
+      localStorage.setItem("echo_database", JSON.stringify(echo_database));
+      my_cart_items_list();
+    }
+  }
+}
+
+function All_Function_Cell() {
+  categories();
+  print_product_menu();
+  show_product_detalis_print_list();
+  my_cart_items_list();
+}
+
+All_Function_Cell();
 
 //  Slider
 var drawer = function () {
